@@ -123,15 +123,17 @@ export default class State {
   reset() {
     resetId++;
     let width = 0.8 * window.innerWidth;
-    let height = 0.8 * window.innerWidth;
+    let height = 0.8 * window.innerHeight;
     const phi = this.ratio;
     const controls = document.getElementById("controls");
     if (width > height) {
       controls.style.flexDirection = "column";
       width = Math.min(height * phi, width);
+      height = width / phi;
     } else {
       controls.style.flexDirection = "row";
       height = Math.min(width * phi, height);
+      width = height * phi;
       this.scale = 2;
     }
     this.ratio = width / height;
