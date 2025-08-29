@@ -1,0 +1,12 @@
+{
+  "rust-analyzer.diagnostics.disabled": [
+    "unresolved-proc-macro",
+    "macro-error"
+  ],
+  "files.exclude": {
+    "src/rust/filename.rs": true
+  },
+  "files.watcherExclude": {
+    "src/rust/filename.rs": true
+  }
+}

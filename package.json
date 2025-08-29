@@ -1,0 +1,16 @@
+{
+  "scripts": {
+    "build:wasm": "wasm-pack build --release --target web --out-dir ./public/wasm/ && wasm-opt -O2 -o ./public/wasm/almondala_bg.wasm ./public/wasm/almondala_bg.wasm",
+    "build:ts": "tsc",
+    "build:fix-imports:mac": "find ./public/js -name '*.js' -exec sed -i '' 's|\"../../public/wasm/almondala.js\"|\"../wasm/almondala.js\"|g' {} +",
+    "build:fix-imports:linux": "find ./public/js -name '*.js' -exec sed -i 's|\"../../public/wasm/almondala.js\"|\"../wasm/almondala.js\"|g' {} +",
+    "build:fix-imports:windows": "powershell -Command \"Get-ChildItem -Path .\\public\\js\\ -Filter *.js -Recurse | ForEach-Object { (Get-Content $_.FullName) -replace '\\.\\.\\/\\.\\.\\/public\\/wasm\\/almondala\\.js', '../wasm/almondala.js' | Set-Content $_.FullName }\"",
+    "build:fix-imports": "npm run build:fix-imports:$(node -p \"process.platform === 'darwin' ? 'mac' : process.platform === 'win32' ? 'windows' : 'linux'\")",
+    "build": "npm run build:wasm && npm run build:ts && npm run build:fix-imports"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.3",
+    "undici-types": "^7.2.2",
+    "wasm-pack": "^0.0.0"
+  }
+}

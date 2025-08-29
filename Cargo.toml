@@ -1,0 +1,13 @@
+[package]
+name = "almondala"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+path = "src/rust/lib.rs"
+crate-type = ["cdylib"]
+
+[dependencies]
+num = "0.4.3"
+wasm-bindgen = "0.2.99"
+generate_tables = { path = "./generate_tables" }

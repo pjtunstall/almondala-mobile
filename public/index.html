@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta property="og:title" content="Almondala" />
+    <meta property="og:description" content="Mandelbrot explorer." />
+    <meta
+      property="og:image"
+      content="https://almondala.netlify.app/initial.jpg"
+    />
+    <meta property="og:url" content="https://almondala.netlify.app" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Almondala" />
+
+    <title>Almondala</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" href="favicon.ico" />
+  </head>
+  <body>
+    <div id="replay-text" class="text">Replay zoom out</div>
+    <div id="iterations-text" class="text">Max iterations: 128</div>
+    <div id="exponent-text" class="text">Exponent: 2</div>
+
+    <div id="controls">
+      <button id="color">&#x1F308;</button>
+      <button id="replay">&#x27F3;</button>
+      <button id="plus">＋</button>
+      <button id="minus">－</button>
+      <button id="info">&#x2139;</button>
+      <button id="power-up">&#x2C4;</button>
+      <button id="power-down">&#x2C5;</button>
+    </div>
+
+    <div class="modal">
+      <div class="modal-content">
+        <p style="text-align: left">
+          ► Keys: arrows to pan, Z and X to zoom, space to reset.<br /><br />►
+          Mouse: click to re-center, double-click to zoom, hold to drag.
+        </p>
+
+        <div class="close-button">
+          <span class="x-icon">&#x2715;</span>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
+    <script type="module" src="wasm/almondala.js"></script>
+  </body>
+</html>
