@@ -122,37 +122,102 @@ export default class State {
   }
   reset() {
     resetId++;
-    let width = 0.8 * window.innerWidth;
-    let height = 0.8 * window.innerHeight;
-    const phi = this.ratio;
+
+    // Get viewport dimensions
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+
+    // Get controls element and calculate its dimensions
     const controls = document.getElementById("controls");
-    if (width > height) {
-      controls.style.flexDirection = "column";
-      width = Math.min(height * phi, width);
-      height = width / phi;
+    let controlsWidth = 0;
+    let controlsHeight = 0;
+
+    if (controls) {
+      // Force a layout update to get accurate measurements
+      controls.style.display = "flex";
+      const controlsRect = controls.getBoundingClientRect();
+      controlsWidth = controlsRect.width;
+      controlsHeight = controlsRect.height;
+    }
+
+    // Define your desired aspect ratio (adjust as needed)
+    const targetAspectRatio = this.ratio || 1.0; // Default to square if ratio not set
+
+    // Calculate available space
+    let availableWidth, availableHeight;
+    const isLandscape = viewportWidth > viewportHeight;
+
+    if (isLandscape) {
+      if (controls) {
+        controls.style.flexDirection = "column";
+        availableWidth = viewportWidth - controlsWidth - 40;
+        availableHeight = viewportHeight - 20;
+      } else {
+        availableWidth = viewportWidth - 20;
+        availableHeight = viewportHeight - 20;
+      }
     } else {
-      controls.style.flexDirection = "row";
-      height = Math.min(width * phi, height);
-      width = height * phi;
-      this.scale = 2;
+      if (controls) {
+        controls.style.flexDirection = "row";
+        availableWidth = viewportWidth - 20;
+        availableHeight = viewportHeight - controlsHeight - 40;
+      } else {
+        availableWidth = viewportWidth - 20;
+        availableHeight = viewportHeight - 20;
+      }
     }
-    this.ratio = width / height;
-    canvas.style.width = `${width}px`;
-    canvas.style.height = `${height}px`;
-    const intrinsicWidth = Math.floor(width * dpr);
-    const intrinsicHeight = Math.floor(height * dpr);
-    if (width <= 0 || height <= 0) {
-      console.error("Invalid main canvas width and height:", width, height);
+
+    let canvasWidth, canvasHeight;
+
+    if (availableWidth / availableHeight > targetAspectRatio) {
+      canvasHeight = availableHeight;
+      canvasWidth = canvasHeight * targetAspectRatio;
+    } else {
+      canvasWidth = availableWidth;
+      canvasHeight = canvasWidth / targetAspectRatio;
     }
+
+    const minSize = 200;
+    if (canvasWidth < minSize) {
+      canvasWidth = minSize;
+      canvasHeight = minSize / targetAspectRatio;
+    }
+    if (canvasHeight < minSize) {
+      canvasHeight = minSize;
+      canvasWidth = minSize * targetAspectRatio;
+    }
+
+    const dpr = window.devicePixelRatio || 1;
+
+    canvas.style.width = `${Math.floor(canvasWidth)}px`;
+    canvas.style.height = `${Math.floor(canvasHeight)}px`;
+
+    const intrinsicWidth = Math.floor(canvasWidth * dpr);
+    const intrinsicHeight = Math.floor(canvasHeight * dpr);
+
+    if (intrinsicWidth <= 0 || intrinsicHeight <= 0) {
+      console.error(
+        "Invalid canvas dimensions:",
+        intrinsicWidth,
+        intrinsicHeight
+      );
+      return;
+    }
+
     canvas.width = intrinsicWidth;
     canvas.height = intrinsicHeight;
+
     this.width = intrinsicWidth;
     this.height = intrinsicHeight;
+    this.ratio = canvasWidth / canvasHeight;
+
     this.tiles = [...Tile.tiles(intrinsicWidth, intrinsicHeight, rows, cols)];
+
     const iterationsText = document.getElementById("iterations-text");
     if (iterationsText) {
       iterationsText.textContent = `Max iterations: ${this.maxIterations}`;
     }
+
     const exponentText = document.getElementById("exponent-text");
     if (exponentText) {
       exponentText.textContent = `Exponent: ${this.power}`;
