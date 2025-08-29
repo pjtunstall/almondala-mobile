@@ -2,6 +2,7 @@
 
 ![Mandelbrot](public/initial.jpg)
 
+- [This repo](#this-repo)
 - [Description](#description)
 - [Name](#name)
 - [Usage](#usage)
@@ -10,6 +11,10 @@
 - [Experimental branches](#experimental-branches)
 - [Benchmarking](#benchmarking)
 - [Further](#further)
+
+## This repo
+
+This repo is a testbed for working on a mobile-friendly version of my [Almondala](https://almondala.netlify.app/) project. In this one, I renamed the `public` folder `docs` to allow me to deploy from it to GitHub Pages, since that platform doesn't have the option to deploy from public.
 
 ## Description
 
