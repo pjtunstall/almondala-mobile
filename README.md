@@ -14,7 +14,7 @@
 
 ## This repo
 
-This repo is a testbed for working on a mobile-friendly version of my [Almondala](https://almondala.netlify.app/) project. In this one, I renamed the `public` folder `docs` to allow me to deploy from it to GitHub Pages, since that platform doesn't have the option to deploy from public.
+This repo is a testbed for working on a mobile-friendly version of my Almondala project. (Original repo [here](https://github.com/pjtunstall/almondala).) In this one, I renamed the `public` folder `docs` to allow me to deploy from it to GitHub Pages, since that platform doesn't have the option to deploy from public.
 
 Yet to do:
 
