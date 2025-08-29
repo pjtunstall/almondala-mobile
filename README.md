@@ -16,6 +16,16 @@
 
 This repo is a testbed for working on a mobile-friendly version of my [Almondala](https://almondala.netlify.app/) project. In this one, I renamed the `public` folder `docs` to allow me to deploy from it to GitHub Pages, since that platform doesn't have the option to deploy from public.
 
+Yet to do:
+
+- Portrait: make sure all buttons are visible.
+- Landscape: make buttons bigger.
+
+I could use the empty space better, maybe have two rows of buttons. The canvas could be put off center if that helps and looks alright.
+
+- Since we don't have the button instructions on hover, the info button has to be more comprehensive.
+- Add more controls, e.g. drag to reposition.
+
 ## Description
 
 [Almondala](https://almondala.netlify.app/) is a [Mandelbrot set](https://en.wikipedia.org/wiki/Mandelbrot_set) explorer, written in Rust (compiled to WebAssembly) and TypeScript.
