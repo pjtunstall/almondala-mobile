@@ -130,7 +130,6 @@ canvas.visible {
 }
 
 body {
-  /* Keep all your existing body styles, just add: */
   overflow: hidden;
   height: 100vh;
   height: -webkit-fill-available; /* iOS Safari fix */
@@ -162,16 +161,33 @@ body {
   }
 }
 
-/* Very small screens (phones in portrait) */
 @media (max-width: 480px) and (orientation: portrait) {
   #controls {
-    gap: 2vmin; /* Reduce gap on very small screens */
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    gap: 2vmin;
+    width: 100%;
+    padding: 2vmin;
   }
 
   #controls > button {
-    width: 15vmin;
-    height: 15vmin;
-    font-size: 8vmin;
+    width: 14vmin;
+    height: 14vmin;
+    font-size: 7vmin;
+  }
+
+  #controls > button:nth-child(-n + 3) {
+    order: 1;
+  }
+
+  #controls > button:nth-child(n + 4) {
+    order: 2;
   }
 }
 
