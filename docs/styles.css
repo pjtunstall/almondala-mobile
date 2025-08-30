@@ -169,7 +169,6 @@ body {
     transform: translateX(-50%);
     display: flex;
     flex-wrap: wrap;
-    flex-direction: row;
     justify-content: center;
     gap: 2vmin;
     width: 100%;
@@ -180,14 +179,15 @@ body {
     width: 14vmin;
     height: 14vmin;
     font-size: 7vmin;
+    flex: 0 0 auto;
   }
 
   #controls > button:nth-child(-n + 3) {
-    order: 1;
+    flex-basis: calc(33% - 2vmin);
   }
 
   #controls > button:nth-child(n + 4) {
-    order: 2;
+    flex-basis: calc(25% - 2vmin);
   }
 }
 
