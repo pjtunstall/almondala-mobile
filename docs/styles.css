@@ -151,7 +151,6 @@ body {
     word-wrap: break-word;
   }
 
-  /* Make modal content more mobile-friendly */
   .modal-content {
     max-width: 90vw;
     max-height: 90vh;
