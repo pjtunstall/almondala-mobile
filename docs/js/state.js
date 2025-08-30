@@ -123,27 +123,23 @@ export default class State {
   reset() {
     resetId++;
 
-    // Get viewport dimensions
     const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight;
 
-    // Get controls element and calculate its dimensions
     const controls = document.getElementById("controls");
     let controlsWidth = 0;
     let controlsHeight = 0;
 
     if (controls) {
-      // Force a layout update to get accurate measurements
+      // Force a layout update to get accurate measurements.
       controls.style.display = "flex";
       const controlsRect = controls.getBoundingClientRect();
       controlsWidth = controlsRect.width;
       controlsHeight = controlsRect.height;
     }
 
-    // Define your desired aspect ratio (adjust as needed)
-    const targetAspectRatio = this.ratio || 1.0; // Default to square if ratio not set
+    const targetAspectRatio = this.ratio || 1.0;
 
-    // Calculate available space
     let availableWidth, availableHeight;
     const isLandscape = viewportWidth > viewportHeight;
 
