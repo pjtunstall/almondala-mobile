@@ -31,6 +31,7 @@ export default class State {
   constructor(grayscale, workerPool) {
     this.grayscale = grayscale;
     this.workerPool = workerPool;
+    this.setupVisibility();
   }
   changeColor() {
     this.grayscale = !this.grayscale;
@@ -104,23 +105,30 @@ export default class State {
       exponentText.textContent = `Exponent: ${this.power}`;
     }
   }
+  prepareReset() {
+    Object.assign(this, {
+      ...new State(this.grayscale, this.workerPool),
+    });
+    this.reset();
+    this.render();
+  }
+  isMobileDevice() {
+    const hasCoarsePointer = window.matchMedia("(pointer: coarse)").matches;
+    const hasTouchPoints = navigator.maxTouchPoints > 0;
+    return hasCoarsePointer || hasTouchPoints;
+  }
   requestReset() {
-    if (cooldownTimer) clearTimeout(cooldownTimer);
-    cooldownTimer = setTimeout(() => {
-      Object.assign(this, {
-        ...new State(this.grayscale, this.workerPool),
-      });
-      canvas.style.transition = "none";
-      canvas.style.opacity = "0";
-      setTimeout(() => {
-        canvas.style.transition = "opacity 2s ease-in-out";
-        canvas.style.opacity = "1";
-      }, 10);
-      this.reset();
-      this.render();
-    }, 256);
+    if (this.isMobileDevice()) {
+      this.prepareReset();
+    } else {
+      if (this.cooldownTimer) clearTimeout(this.cooldownTimer);
+      this.cooldownTimer = setTimeout(() => {
+        this.prepareReset();
+      }, 256);
+    }
   }
   reset() {
+    let resetId = 0;
     resetId++;
 
     const viewportWidth = window.innerWidth;
@@ -131,8 +139,6 @@ export default class State {
     let controlsHeight = 0;
 
     if (controls) {
-      // Force a layout update to get accurate measurements.
-      controls.style.display = "flex";
       const controlsRect = controls.getBoundingClientRect();
       controlsWidth = controlsRect.width;
       controlsHeight = controlsRect.height;
@@ -145,7 +151,6 @@ export default class State {
 
     if (isLandscape) {
       if (controls) {
-        controls.style.flexDirection = "column";
         availableWidth = viewportWidth - controlsWidth - 40;
         availableHeight = viewportHeight - 20;
       } else {
@@ -154,7 +159,6 @@ export default class State {
       }
     } else {
       if (controls) {
-        controls.style.flexDirection = "row";
         availableWidth = viewportWidth - 20;
         availableHeight = viewportHeight - controlsHeight - 40;
       } else {
@@ -192,11 +196,6 @@ export default class State {
     const intrinsicHeight = Math.floor(canvasHeight * dpr);
 
     if (intrinsicWidth <= 0 || intrinsicHeight <= 0) {
-      console.error(
-        "Invalid canvas dimensions:",
-        intrinsicWidth,
-        intrinsicHeight
-      );
       return;
     }
 
@@ -253,6 +252,36 @@ export default class State {
     if (data.type === "render") {
       ctx.drawImage(imageBitmap, tileLeft, tileTop);
     }
+  }
+  setupVisibility() {
+    const controls = document.getElementById("controls");
+    const canvas = document.getElementById("canvas");
+    if (!controls || !canvas) return;
+
+    controls.classList.add("visible");
+    canvas.classList.add("visible");
+
+    const orientationQuery = window.matchMedia("(orientation: landscape)");
+
+    const handleOrientationChange = () => {
+      controls.style.transition = "none";
+      canvas.style.transition = "none";
+      controls.classList.remove("visible");
+      canvas.classList.remove("visible");
+
+      void document.body.offsetHeight;
+
+      this.requestReset();
+
+      setTimeout(() => {
+        controls.style.transition = "opacity 2s ease-in-out";
+        canvas.style.transition = "opacity 2s ease-in-out";
+        controls.classList.add("visible");
+        canvas.classList.add("visible");
+      }, 50);
+    };
+
+    orientationQuery.addEventListener("change", handleOrientationChange);
   }
 }
 //# sourceMappingURL=state.js.map
