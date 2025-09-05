@@ -267,17 +267,24 @@ export default class State {
     const orientationQuery = window.matchMedia("(orientation: landscape)");
 
     const handleOrientationChange = () => {
+      controls.style.transition = "none";
+      canvas.style.transition = "none";
       controls.classList.remove("visible");
       canvas.classList.remove("visible");
 
+      void document.body.offsetHeight;
+
+      this.requestReset();
+
       setTimeout(() => {
-        this.requestReset();
+        controls.style.transition = "opacity 2s ease-in-out";
+        canvas.style.transition = "opacity 2s ease-in-out";
 
         setTimeout(() => {
           controls.classList.add("visible");
           canvas.classList.add("visible");
-        }, 10);
-      }, 2000);
+        }, 20);
+      }, 100);
     };
 
     orientationQuery.addEventListener("change", handleOrientationChange);
