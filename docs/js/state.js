@@ -276,8 +276,11 @@ export default class State {
       setTimeout(() => {
         controls.style.transition = "opacity 2s ease-in-out";
         canvas.style.transition = "opacity 2s ease-in-out";
-        controls.classList.add("visible");
-        canvas.classList.add("visible");
+
+        setTimeout(() => {
+          controls.classList.add("visible");
+          canvas.classList.add("visible");
+        }, 10);
       }, 50);
     };
 
