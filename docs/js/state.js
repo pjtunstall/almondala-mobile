@@ -259,31 +259,20 @@ export default class State {
     if (!controls || !canvas) return;
 
     // Initial fade in.
-    setTimeout(() => {
-      controls.classList.add("visible");
-      canvas.classList.add("visible");
-    }, 10);
+    controls.classList.add("visible");
+    canvas.classList.add("visible");
 
     const orientationQuery = window.matchMedia("(orientation: landscape)");
 
     const handleOrientationChange = () => {
-      controls.classList.add("no-transition");
-      canvas.classList.add("no-transition");
       controls.classList.remove("visible");
       canvas.classList.remove("visible");
-
-      void document.body.offsetHeight;
 
       this.requestReset();
 
       setTimeout(() => {
-        controls.classList.remove("no-transition");
-        canvas.classList.remove("no-transition");
-
-        setTimeout(() => {
-          controls.classList.add("visible");
-          canvas.classList.add("visible");
-        }, 20);
+        controls.classList.add("visible");
+        canvas.classList.add("visible");
       }, 100);
     };
 
