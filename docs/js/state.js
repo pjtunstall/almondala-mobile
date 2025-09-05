@@ -258,30 +258,26 @@ export default class State {
     const canvas = document.getElementById("canvas");
     if (!controls || !canvas) return;
 
-    controls.classList.add("visible");
-    canvas.classList.add("visible");
+    // Initial fade in.
+    setTimeout(() => {
+      controls.classList.add("visible");
+      canvas.classList.add("visible");
+    }, 10);
 
     const orientationQuery = window.matchMedia("(orientation: landscape)");
 
     const handleOrientationChange = () => {
-      controls.style.transition = "none";
-      canvas.style.transition = "none";
       controls.classList.remove("visible");
       canvas.classList.remove("visible");
 
-      void document.body.offsetHeight;
-
-      this.requestReset();
-
       setTimeout(() => {
-        controls.style.transition = "opacity 2s ease-in-out";
-        canvas.style.transition = "opacity 2s ease-in-out";
+        this.requestReset();
 
         setTimeout(() => {
           controls.classList.add("visible");
           canvas.classList.add("visible");
         }, 10);
-      }, 50);
+      }, 2000);
     };
 
     orientationQuery.addEventListener("change", handleOrientationChange);
