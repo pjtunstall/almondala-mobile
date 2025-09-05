@@ -54,15 +54,14 @@ canvas.visible {
 #controls {
   position: fixed;
   bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 2vmin;
-  width: 100%;
-  padding: 2vmin;
   z-index: 1;
+  opacity: 0;
+  transition: opacity 2s ease-in-out;
+}
+
+#controls.visible {
+  opacity: 1;
 }
 
 #controls > button {
@@ -79,9 +78,6 @@ canvas.visible {
   text-shadow: 0 0 1.4vmin black;
   transition: var(--transition-time) ease-in-out;
   touch-action: manipulation;
-  width: 14vmin;
-  height: 14vmin;
-  font-size: 7vmin;
   flex: 0 0 auto;
 }
 
@@ -139,6 +135,38 @@ body {
   height: -webkit-fill-available; /* iOS Safari fix */
 }
 
+@media (orientation: portrait) {
+  #controls {
+    left: 50%;
+    transform: translateX(-50%);
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    padding: 2vmin;
+    gap: 2vmin;
+  }
+  #controls > button {
+    width: 14vmin;
+    height: 14vmin;
+    font-size: 7vmin;
+  }
+}
+
+@media (orientation: landscape) {
+  #controls {
+    right: 0;
+    flex-direction: column;
+    padding: 1.25vmin;
+    gap: 1.25vmin;
+  }
+  #controls > button {
+    width: 10vmin;
+    height: 10vmin;
+    font-size: 6vmin;
+  }
+}
+
 /* Mobile-specific button sizing for better touch targets */
 @media (max-width: 768px) {
   #controls > button {
@@ -161,26 +189,6 @@ body {
     padding: 6vmin;
     font-size: 4vmin;
     overflow-y: auto;
-  }
-}
-
-@media (min-width: 481px) {
-  #controls {
-    left: auto;
-    transform: none;
-    width: auto;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    right: 0;
-    gap: 1.25vmin;
-    padding: 1.25vmin;
-  }
-
-  #controls > button {
-    width: 10vmin;
-    height: 10vmin;
-    font-size: 6vmin;
   }
 }
 
