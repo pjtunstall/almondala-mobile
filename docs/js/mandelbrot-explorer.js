@@ -16,7 +16,6 @@ export default class MandelbrotExplorer {
     this.state = state;
     this.state.reset();
     this.state.render();
-    initializeControlVisibility();
     const replayText = document.getElementById("replay-text");
     const iterationsText = document.getElementById("iterations-text");
     const exponentText = document.getElementById("exponent-text");
@@ -107,23 +106,5 @@ export default class MandelbrotExplorer {
 }
 function toggleVisibility(element, show) {
   if (element) element.style.opacity = show ? "1" : "0";
-}
-function initializeControlVisibility() {
-  const controls = document.getElementById("controls");
-  if (!controls) return;
-
-  const fadeIn = () => {
-    controls.classList.add("visible");
-  };
-
-  const handleOrientationChange = () => {
-    controls.classList.remove("visible");
-    controls.addEventListener("transitionend", fadeIn, { once: true });
-  };
-
-  const orientationQuery = window.matchMedia("(orientation: landscape)");
-  orientationQuery.addEventListener("change", handleOrientationChange);
-
-  fadeIn();
 }
 //# sourceMappingURL=mandelbrot-explorer.js.map

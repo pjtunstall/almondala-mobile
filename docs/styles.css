@@ -132,14 +132,14 @@ canvas.visible {
 body {
   overflow: hidden;
   height: 100vh;
-  height: -webkit-fill-available; /* iOS Safari fix */
+  height: -webkit-fill-available;
 }
 
 @media (orientation: portrait) {
   #controls {
     left: 50%;
     transform: translateX(-50%);
-    flex-direction: row;
+    flex-direction: row !important;
     flex-wrap: wrap;
     justify-content: center;
     width: 100%;
@@ -167,18 +167,15 @@ body {
   }
 }
 
-/* Mobile-specific button sizing for better touch targets */
 @media (max-width: 768px) {
   #controls > button {
-    /* Ensure buttons are large enough for touch on very small screens */
     min-width: 12vmin;
     min-height: 12vmin;
     font-size: 7vmin;
   }
 
-  /* Adjust text positioning on mobile to avoid overlap with controls */
   .text {
-    max-width: 60vw; /* Prevent text from going under controls */
+    max-width: 60vw;
     line-height: 1.1;
     word-wrap: break-word;
   }
