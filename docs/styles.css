@@ -216,3 +216,8 @@ body {
     padding: 0.8vmin;
   }
 }
+
+canvas.no-transition,
+#controls.no-transition {
+  transition: none !important;
+}

@@ -267,8 +267,8 @@ export default class State {
     const orientationQuery = window.matchMedia("(orientation: landscape)");
 
     const handleOrientationChange = () => {
-      controls.style.transition = "none";
-      canvas.style.transition = "none";
+      controls.classList.add("no-transition");
+      canvas.classList.add("no-transition");
       controls.classList.remove("visible");
       canvas.classList.remove("visible");
 
@@ -277,8 +277,8 @@ export default class State {
       this.requestReset();
 
       setTimeout(() => {
-        controls.style.transition = "opacity 2s ease-in-out";
-        canvas.style.transition = "opacity 2s ease-in-out";
+        controls.classList.remove("no-transition");
+        canvas.classList.remove("no-transition");
 
         setTimeout(() => {
           controls.classList.add("visible");
