@@ -5,6 +5,7 @@ This repo is a testbed for working on a mobile-friendly version of my Almondala 
 Plan:
 
 - Portrait: make sure all buttons are visible. (Done, in two rows.)
+- Portrait: eliminate the 'deadzone' where the window is narrow enough to route to this site, but not narrow enough to trigger wider buttons in two rows.
 - Landscape: make buttons bigger. (Use two columns?)
 - I could use the empty space better. The canvas could be put off center if that helps and looks alright.
 - Since we don't have the button instructions on hover, the info button has to be more comprehensive. Or instructions for each button could appear when it's pressed.
